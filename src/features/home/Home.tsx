@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.scss';
 
-const Home: React.FC = () => {
+export function Home () {
     const navigate = useNavigate();
 
     return (
@@ -16,4 +16,3 @@ const Home: React.FC = () => {
     );
 };
 
-export default Home;

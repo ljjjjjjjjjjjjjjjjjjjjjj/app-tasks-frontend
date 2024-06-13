@@ -1,0 +1,30 @@
+.layout-common {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .header {
+    flex: 0 0 60px;
+  }
+
+  .main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+
+    .sidebar-container {
+      flex: 0 0 100px;
+      height: calc(100vh - 100px);
+    }
+
+    .outlet-container {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+  }
+
+  .footer {
+    flex: 0 0 40px;
+  }
+}
