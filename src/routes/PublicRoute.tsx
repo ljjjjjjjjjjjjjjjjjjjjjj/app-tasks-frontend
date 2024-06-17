@@ -4,16 +4,16 @@ import { useAuth } from '../context/AuthContext';
 import { Loader } from '../components/common/Loader';
 import { AppRoutes } from './AppRoutes';
 
-type PrivateRouteProps = {
-  children: ReactElement;
+type PublicRouteProps = {
+  children:ReactElement;
 };
 
-export const PrivateRoute = ({ children }: PrivateRouteProps): ReactElement  => {
+export const PublicRoute = ({ children }: PublicRouteProps): ReactElement => {
   const { state } = useAuth();
 
   if (state.loading) {
-    return <Loader />; 
+    return <Loader />;
   }
 
-  return state.isAuthenticated ? children : <Navigate to={AppRoutes.LOGIN} />;
+  return !state.isAuthenticated ? children : <Navigate to={AppRoutes.HOME} />;
 };

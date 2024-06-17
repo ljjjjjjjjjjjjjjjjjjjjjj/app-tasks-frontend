@@ -5,5 +5,6 @@ export const AppRoutes = {
   OVERVIEW: '/overview',
   TASKS: '/tasks',
   CALENDAR: '/calendar',
-  SETTINGS: '/settings'
+  SETTINGS: '/settings',
+  ERROR_PAGE: '/error'
 };

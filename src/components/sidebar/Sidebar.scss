@@ -1,5 +1,5 @@
 .sidebar {
-  width: 100px;
+  width: 120px;
   background-color: rgb(201, 230, 239);
   color: rgb(56, 55, 55);
   display: flex;
@@ -10,10 +10,9 @@
   box-sizing: border-box;
 }
 
-.nav-btn {
-  padding: 10px;
+.btn {
   margin: 5px 0;
-  cursor: pointer;
+  width: 100%;
 }
 
 .nav-btn:hover {

@@ -5,6 +5,8 @@
 
   .header {
     flex: 0 0 60px;
+    width: 100%;
+    background-color: #f8f9fa;
   }
 
   .main-content {
@@ -26,5 +28,6 @@
 
   .footer {
     flex: 0 0 40px;
+    background-color: #f8f9fa;
   }
 }

@@ -9,12 +9,11 @@ export function Sidebar() {
   
   return (
     <div className="sidebar">
-
-      <p>Sidebar</p>
-
-      <button onClick={() => navigate(AppRoutes.TASKS)} className="nav-btn">Tasks</button>
-      <button onClick={() => navigate(AppRoutes.CALENDAR)} className="nav-btn">Calendar</button>
-      <button onClick={() => navigate(AppRoutes.SETTINGS)} className="nav-btn">Settings</button>
+      
+      <button onClick={() => navigate(AppRoutes.HOME)} className="btn btn-primary">Home</button>
+      <button onClick={() => navigate(AppRoutes.TASKS)} className="btn btn-primary">Tasks</button>
+      <button onClick={() => navigate(AppRoutes.CALENDAR)} className="btn btn-primary">Calendar</button>
+      <button onClick={() => navigate(AppRoutes.SETTINGS)} className="btn btn-primary">Settings</button>
 
     </div>
   );
