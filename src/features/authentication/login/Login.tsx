@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
 import { login } from '../../../api/AuthApi';
 import './Login.scss';
+import { AppRoutes } from '../../../routes/AppRoutes';
 
 export function Login () {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export function Login () {
     try {
         const data = await login(email, password);
         dispatch({ type: 'LOGIN', token: data.jwt, user: data.user });
-        navigate('/overview');
+        navigate(AppRoutes.OVERVIEW);
     } catch (error) {
         alert('Login failed');
     }

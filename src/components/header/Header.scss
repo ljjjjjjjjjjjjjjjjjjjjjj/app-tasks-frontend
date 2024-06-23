@@ -7,9 +7,16 @@
   padding: 0 20px;
 }
 
-  .company-name-container {
+  .company-logo-container {
     display: flex;
     width: 100px;
+    
+  }
+
+  .company-logo {
+    max-height: 30px;
+    width: auto;
+    margin: 5px;
   }
 
   .user-info-container {

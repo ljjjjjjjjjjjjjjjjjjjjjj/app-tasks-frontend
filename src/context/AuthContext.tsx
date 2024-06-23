@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext, ReactNode, useEffect } from 'react';
+import React, { createContext, useReducer, useContext, ReactNode, useEffect, useCallback } from 'react';
 import { fetchCurrentUser } from '../api/AuthApi';
 
 type User = {
@@ -29,9 +29,18 @@ const initialState: AuthState = {
   loading: true
 };
 
-const AuthContext = createContext<{ state: AuthState; dispatch: React.Dispatch<AuthAction>}>({
+interface AuthContextType {
+  state: AuthState;
+  dispatch: React.Dispatch<AuthAction>;
+  handleLogout: () => void;
+  handleLogin: (token: string, user: User) => void;
+}
+
+const AuthContext = createContext<AuthContextType>({
   state: initialState,
   dispatch: () => null,
+  handleLogout: () => {},
+  handleLogin: () => {}
 });
 
 const authReducer = (state: AuthState, action: AuthAction): AuthState => {
@@ -57,13 +66,21 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  const handleLogout = useCallback(() => {
+    dispatch({ type: 'LOGOUT' });
+  }, [dispatch]);
+
+  const handleLogin = useCallback((token: string, user: User) => {
+    dispatch({ type: 'LOGIN', token, user });
+  }, [dispatch]);
+
   useEffect(() => {
     if (state.token) {
       fetchCurrentUser(state.token).then(user => {
         if (user) {
           dispatch({ type: 'UPDATE_USER', user });
         } else {
-          dispatch({ type: 'LOGOUT' });
+          handleLogout();
         }
       }).finally(() => {
         dispatch({ type: 'SET_LOADING', loading: false });
@@ -71,10 +88,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } else {
       dispatch({ type: 'SET_LOADING', loading: false });
     }
-  }, [state.token]);
+  }, [state.token, dispatch, handleLogout]);
+
 
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider value={{ state, dispatch, handleLogout, handleLogin }}>
       {children}
     </AuthContext.Provider>
   );

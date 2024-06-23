@@ -8,13 +8,24 @@
   padding: 10px;
   height: 100%;
   box-sizing: border-box;
-}
 
-.btn {
-  margin: 5px 0;
-  width: 100%;
-}
 
-.nav-btn:hover {
-  text-decoration: underline;
+  .btn {
+    margin: 5px 0;
+    width: 100%;
+    background-color: rgb(162, 205, 220);
+    color: white;
+    border: none;
+    &.active {
+      background-color: rgb(128, 176, 194);
+      color: white;
+    }
+
+  }
+
+  .btn:hover {
+    background-color: rgb(142, 189, 206);
+    color: white;
+  }
+
 }

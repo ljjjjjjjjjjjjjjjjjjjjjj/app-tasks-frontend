@@ -3,7 +3,7 @@ const BASE_URL = 'http://localhost:8080/auth';
 export const fetchCurrentUser = async (token: string) => {
   const response = await fetch(`${BASE_URL}/current-user`, {
       headers: {
-          Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
   });
   return handleResponse(response);
@@ -30,8 +30,18 @@ export const signup = async (firstName: string, lastName: string, email: string,
 const handleResponse = async (response: Response) => {
   if (response.ok) {
     return response.json();
-  } else {
+  } 
+  else {
+    if (response.status === 403) {
+      logout();
+      throw new Error("Token is invalid or expired. Redirecting to home page.");
+    }
     const errorData = await response.json();
-    throw errorData || { general: 'Signup failed' };
+    throw errorData || { general: 'Authentication failed' };
   }
+};
+
+const logout = () => {
+  localStorage.removeItem('token');
+  window.location.href = '/';
 };

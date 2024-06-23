@@ -6,12 +6,12 @@ import { AppRoutes } from '../../routes/AppRoutes';
 
 
 export function Header() {
-  const { state, dispatch } = useAuth();
+  const { state, handleLogout } = useAuth();
   const navigate = useNavigate();
 
   const handleSignOut = () => {
-    dispatch({ type: 'LOGOUT' });
-    navigate('/login');
+    handleLogout();
+    navigate(AppRoutes.HOME);
   };
 
   const getTruncatedName = () => {
@@ -27,8 +27,8 @@ export function Header() {
   return (
     <div className="header-inner">
 
-      <div className="company-name-container">
-        <p>Header</p>
+      <div className="company-logo-container">
+        <img src="/images/company-logo.jpg" alt="Company Logo" className="company-logo" />
       </div>
 
       <div className="user-info-container">

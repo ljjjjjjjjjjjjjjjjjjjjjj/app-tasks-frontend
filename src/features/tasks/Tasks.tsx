@@ -4,7 +4,7 @@ export function Tasks () {
     
     return (
         <div>
-            <h1>Assignments</h1>
+            <h1>Tasks</h1>
         </div>
     );
 };

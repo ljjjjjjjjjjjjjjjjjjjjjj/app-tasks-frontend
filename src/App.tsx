@@ -1,5 +1,6 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, { Suspense, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { AuthProvider } from './context/AuthContext';
 import { AppRoutes } from './routes/AppRoutes';

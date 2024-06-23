@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Loader } from '../components/common/Loader';
 import { AppRoutes } from './AppRoutes';
@@ -10,10 +10,17 @@ type PublicRouteProps = {
 
 export const PublicRoute = ({ children }: PublicRouteProps): ReactElement => {
   const { state } = useAuth();
+  const location = useLocation();
 
   if (state.loading) {
     return <Loader />;
   }
 
-  return !state.isAuthenticated ? children : <Navigate to={AppRoutes.HOME} />;
+  const isPathsRestricted =  location.pathname === AppRoutes.LOGIN || location.pathname === AppRoutes.SIGN_UP;
+
+  if (state.isAuthenticated && isPathsRestricted) {
+    return <Navigate to={AppRoutes.HOME} />;
+  }
+
+  return children;
 };
