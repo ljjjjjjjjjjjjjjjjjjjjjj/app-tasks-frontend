@@ -1,8 +1,16 @@
 import { CategoryModel } from "./CategoryModel";
 
 export interface TaskModel {
-	taskId: string
+	taskId?: string
   title: string
-  category: CategoryModel
-  description: string
+  category?: CategoryModel
+  description?: string
+  createdById: string
+  assignedToId?: string
+  status: string
+  priority: string
+  createdDate?: Date | null
+  assignedDate?: Date | null
+  unassignedDate?: Date  | null
+  doneDate?: Date | null
 }

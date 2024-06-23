@@ -4,6 +4,7 @@ export const AppRoutes = {
   LOGIN: '/login' as const,
   OVERVIEW: '/overview' as const,
   TASKS: '/tasks' as const,
+  TASK: '/tasks/:taskId' as const,
   CALENDAR: '/calendar' as const,
   SETTINGS: '/settings' as const,
   ERROR_PAGE: '/error' as const,

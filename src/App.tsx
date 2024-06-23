@@ -1,6 +1,5 @@
-import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Suspense } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import { AuthProvider } from './context/AuthContext';
 import { AppRoutes } from './routes/AppRoutes';
@@ -16,6 +15,7 @@ import { SignUp } from './features/authentication/signup/SignUp';
 import { Overview } from './features/overview/Overview';
 import { Calendar } from './features/calendar/Calendar';
 import { Tasks } from './features/tasks/Tasks';
+import { TaskCard } from './features/tasks/TaskCard';
 import { Loader } from './components/common/Loader';
 import { Settings } from './features/settings/Settings';
 import { ErrorPage } from './features/error/ErrorPage';
@@ -39,6 +39,7 @@ export function App () {
               <Route path={AppRoutes.OVERVIEW} element={<PrivateRoute><Overview /></PrivateRoute>} />
               <Route path={AppRoutes.CALENDAR} element={<PrivateRoute><Calendar /></PrivateRoute>} />
               <Route path={AppRoutes.TASKS} element={<PrivateRoute><Tasks /></PrivateRoute>} />
+              <Route path={AppRoutes.TASK} element={<PrivateRoute><TaskCard /></PrivateRoute>} />
               <Route path={AppRoutes.SETTINGS} element={<PrivateRoute><Settings /></PrivateRoute>} />
             </Route>
 

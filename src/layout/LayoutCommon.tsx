@@ -13,7 +13,13 @@ export function LayoutCommon () {
   const location = useLocation();
 
   React.useEffect(() => {
-    switch (location.pathname) {
+    let routePath = location.pathname;
+    
+    if (routePath.startsWith(AppRoutes.TASK.replace(':taskId', ''))) {
+      routePath = AppRoutes.TASKS;
+    }
+
+    switch (routePath) {
       case AppRoutes.HOME:
         dispatch(setCurrentPage(AppRoutes.HOME));
         break;
@@ -24,6 +30,7 @@ export function LayoutCommon () {
         dispatch(setCurrentPage(AppRoutes.CALENDAR));
         break;
       case AppRoutes.TASKS:
+      case AppRoutes.TASK:
         dispatch(setCurrentPage(AppRoutes.TASKS));
         break;
       case AppRoutes.SETTINGS:
