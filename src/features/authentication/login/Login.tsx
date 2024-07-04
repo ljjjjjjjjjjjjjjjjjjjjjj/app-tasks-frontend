@@ -10,16 +10,22 @@ export function Login () {
   const { dispatch } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage('');
 
     try {
         const data = await login(email, password);
         dispatch({ type: 'LOGIN', token: data.jwt, user: data.user });
         navigate(AppRoutes.OVERVIEW);
     } catch (error) {
-        alert('Login failed');
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage('Login failed due to unexpected error');
+      }
     }
 };
 
@@ -56,6 +62,10 @@ export function Login () {
                   required
                   className="auth-input"
                 />
+              </div>
+
+              <div className='auth-error-field'>
+                {errorMessage && <div className="auth-error">{errorMessage}</div>}
               </div>
 
               <button type="submit" className="auth-submit-button">

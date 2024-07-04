@@ -5,9 +5,7 @@ export function Footer() {
  
   return (
     <footer className="footer">
-
-      <p>Footer</p>
-
+      <p>&copy; {new Date().getFullYear()} Tasker. All rights reserved.</p>
     </footer>
   );
 }

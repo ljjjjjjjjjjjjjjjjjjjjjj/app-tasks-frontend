@@ -1,0 +1,102 @@
+.tasks-container{
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+}
+
+.tasks-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  background-color: white;
+  border-bottom: 1px solid rgb(234, 232, 232);
+  box-sizing: border-box; 
+}
+
+.tasks-header-title,
+.tasks-header-subtitle,
+.tasks-header-text {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  height: 30px;
+  padding: 0 10px;
+  margin: 0 5px;
+}
+
+.tasks-header-subtitle {
+  background-color: rgb(237, 235, 235);
+  border-radius: 8px;
+  box-shadow: 1px;
+}
+
+.tasks-header-text {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.tasks-header-title h1,
+.tasks-header-subtitle h3,
+.tasks-header-text p {
+  line-height: 1;
+}
+
+.tasks-header h1{
+  font-size: 1.3rem;
+  margin-bottom: 1px;
+}
+
+.tasks-header h3{
+  font-size: 1rem;
+  margin-bottom: 1px;
+}
+
+.tasks-header p{
+  font-size: 0.85rem;
+  margin-bottom: 0px;
+}
+
+
+
+
+
+
+
+.tasks-status-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: stretch;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+
+   h1 {
+    font-size: 1.2rem;
+   }
+
+   h3{
+    font-size: 0.9rem;
+    padding-bottom: 5px;
+   }
+
+   p{
+    font-size: 0.85rem;
+   }
+
+}
+
+.tasks-status-item {
+  flex: 1;
+  background-color: rgb(244, 244, 244);
+  border-radius: 8px;
+  padding: 10px;
+  margin-right: 5px;
+  
+}
+

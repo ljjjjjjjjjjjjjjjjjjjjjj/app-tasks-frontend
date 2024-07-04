@@ -8,6 +8,7 @@ export const AppRoutes = {
   CALENDAR: '/calendar' as const,
   SETTINGS: '/settings' as const,
   ERROR_PAGE: '/error' as const,
+  ERROR_SERVER_PAGE: '/server-error' as const,
 } as const;
 
 export type AppRoutesType = typeof AppRoutes[keyof typeof AppRoutes];

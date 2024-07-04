@@ -32,12 +32,24 @@ const handleResponse = async (response: Response) => {
     return response.json();
   } 
   else {
+    let errorData;
+    try {
+      errorData = await response.json();
+    } 
+    catch {
+      throw new Error('An unexpected error occurred');
+    }
+
     if (response.status === 403) {
       logout();
       throw new Error("Token is invalid or expired. Redirecting to home page.");
+    } 
+    else if (response.status === 400 && errorData && errorData.error) {
+      throw new Error(errorData.error);
+    } 
+    else {
+      throw new Error(errorData.message || 'Authentication failed');
     }
-    const errorData = await response.json();
-    throw errorData || { general: 'Authentication failed' };
   }
 };
 

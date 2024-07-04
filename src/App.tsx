@@ -18,8 +18,10 @@ import { Tasks } from './features/tasks/Tasks';
 import { TaskCard } from './features/tasks/TaskCard';
 import { Loader } from './components/common/Loader';
 import { Settings } from './features/settings/Settings';
-import { ErrorPage } from './features/error/ErrorPage';
+import { ErrorPage } from './components/error/ErrorPage';
 import { LayoutError } from './layout/LayoutError';
+import { ErrorBackendDownPage } from './components/error/ErrorBackendDownPage';
+import ErrorBoundary from './components/error/ErrorBoundary';
 
 export function App () {
 
@@ -27,29 +29,68 @@ export function App () {
     <AuthProvider>
       <BrowserRouter>
         <Suspense fallback={<Loader />}>
-
+    
           <Routes>
+
             <Route element={<LayoutAuth />}>
-              <Route path={AppRoutes.LOGIN} element={<PublicRoute><Login /></PublicRoute>} />
-              <Route path={AppRoutes.SIGN_UP} element={<PublicRoute><SignUp /></PublicRoute>} />
+              <Route path={AppRoutes.LOGIN} element={ 
+                <ErrorBoundary>
+                  <PublicRoute><Login /></PublicRoute>
+                </ErrorBoundary>
+              } />
+              <Route path={AppRoutes.SIGN_UP} element={
+                <ErrorBoundary>
+                  <PublicRoute><SignUp /></PublicRoute>
+                </ErrorBoundary>
+              }/>
             </Route>
 
             <Route element={<LayoutCommon />}>
-              <Route path={AppRoutes.HOME} element={<PublicRoute><Home /></PublicRoute>} />
-              <Route path={AppRoutes.OVERVIEW} element={<PrivateRoute><Overview /></PrivateRoute>} />
-              <Route path={AppRoutes.CALENDAR} element={<PrivateRoute><Calendar /></PrivateRoute>} />
-              <Route path={AppRoutes.TASKS} element={<PrivateRoute><Tasks /></PrivateRoute>} />
-              <Route path={AppRoutes.TASK} element={<PrivateRoute><TaskCard /></PrivateRoute>} />
-              <Route path={AppRoutes.SETTINGS} element={<PrivateRoute><Settings /></PrivateRoute>} />
+              <Route path={AppRoutes.HOME} element={
+                <ErrorBoundary>
+                  <PublicRoute><Home /></PublicRoute>
+                </ErrorBoundary>                
+                } />
+
+              <Route path={AppRoutes.OVERVIEW} element={
+                <ErrorBoundary>               
+                  <PrivateRoute><Overview /></PrivateRoute>
+                </ErrorBoundary>                
+                } />
+
+              <Route path={AppRoutes.CALENDAR} element={
+                <ErrorBoundary>                
+                  <PrivateRoute><Calendar /></PrivateRoute>
+                </ErrorBoundary>                
+                } />
+
+              <Route path={AppRoutes.TASKS} element={
+                <ErrorBoundary>
+                  <PrivateRoute><Tasks /></PrivateRoute>
+                </ErrorBoundary>                
+                } />
+
+              <Route path={AppRoutes.TASK} element={
+                <ErrorBoundary>
+                  <PrivateRoute><TaskCard /></PrivateRoute>
+                </ErrorBoundary>                
+                } />
+
+              <Route path={AppRoutes.SETTINGS} element={
+                <ErrorBoundary>
+                  <PrivateRoute><Settings /></PrivateRoute>
+                </ErrorBoundary>                
+                } />
             </Route>
 
             <Route element={<LayoutError />}>
-              <Route path={AppRoutes.ERROR_PAGE} element={<PrivateRoute><ErrorPage /></PrivateRoute>}/>
+              <Route path={AppRoutes.ERROR_PAGE} element={<PublicRoute><ErrorPage /></PublicRoute>}/>
               <Route path="*" element={<Navigate to={AppRoutes.ERROR_PAGE} />} />
+              <Route path={AppRoutes.ERROR_SERVER_PAGE} element={<PublicRoute><ErrorBackendDownPage /></PublicRoute>}/>
             </Route>
 
           </Routes>
-
+  
         </Suspense>
       </BrowserRouter>
     </AuthProvider>

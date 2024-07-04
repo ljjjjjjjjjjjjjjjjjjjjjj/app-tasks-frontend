@@ -82,6 +82,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         } else {
           handleLogout();
         }
+      }).catch(() => {
+        handleLogout();
       }).finally(() => {
         dispatch({ type: 'SET_LOADING', loading: false });
       });
