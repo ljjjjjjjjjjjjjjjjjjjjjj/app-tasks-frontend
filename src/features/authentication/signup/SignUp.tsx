@@ -3,15 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import './Signup.scss';
 import { AppRoutes } from '../../../routes/AppRoutes';
 import { signup } from '../../../api/AuthApi';
+import { RegistrationModel } from '../../../models/RegistrationModel';
 
 
 export function SignUp () {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [registrationData, setRegistrationData] = useState<RegistrationModel>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  });
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [successfulRegistration, setSuccessfulRegistration] = useState(false);
 
@@ -19,14 +22,19 @@ export function SignUp () {
     e.preventDefault();
     setErrors({});
 
-    const newErrors = validateForm(email, password, confirmPassword);
+    const newErrors = validateForm(registrationData);
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
     try {
-      await signup(firstName, lastName, email, password);
+      await signup({
+        firstName: registrationData.firstName,
+        lastName: registrationData.lastName,
+        email: registrationData.email,
+        password: registrationData.password
+      });
       setSuccessfulRegistration(true);
       setTimeout(() => {
         navigate(AppRoutes.LOGIN);
@@ -38,17 +46,17 @@ export function SignUp () {
       if (error.firstName) newErrors.firstName = error.firstName;
       if (error.lastName) newErrors.lastName = error.lastName;
       if (error.password) newErrors.password = error.password;
-      if (error.general) newErrors.general = error.general;
+      if (error.general) newErrors.general = error.detail;
       setErrors(newErrors);
     }
   };
 
-  const validateForm = (email: string, password: string, confirmPassword: string) => {
+  const validateForm = (data: RegistrationModel) => {
     const newErrors: { [key: string]: string } = {};
-    if (!isEmailValid(email)) {
+    if (!isEmailValid(data.email)) {
       newErrors.email = 'Invalid email format';
     }
-    const passwordErrors = validatePasswords(password, confirmPassword);
+    const passwordErrors = validatePasswords(data.password, confirmPassword);
     return { ...newErrors, ...passwordErrors };
   };
   
@@ -74,21 +82,24 @@ export function SignUp () {
     return regex.test(email);
   }
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setEmail(value);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setRegistrationData(prevData => ({ ...prevData, [id]: value }));
+
     setErrors(prevErrors => {
       const newErrors = { ...prevErrors };
-      delete newErrors.email;
+      delete newErrors[id];
       return newErrors;
     });
   };
+
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
 
     if (id === 'password') {
-      setPassword(value);
+      setRegistrationData(prevData => ({ ...prevData, password: value }));
       setErrors(prevErrors => {
         const newErrors = { ...prevErrors };
         const passwordValidationErrors = validatePasswords(value, confirmPassword);
@@ -100,7 +111,7 @@ export function SignUp () {
       setConfirmPassword(value);
       setErrors(prevErrors => {
         const newErrors = { ...prevErrors };
-        const passwordValidationErrors = validatePasswords(password, value);
+        const passwordValidationErrors = validatePasswords(registrationData.password, value);
         newErrors.confirmPassword = passwordValidationErrors.confirmPassword || '';
         newErrors.password = passwordValidationErrors.password || '';
         return newErrors;
@@ -122,8 +133,8 @@ export function SignUp () {
                 type="text"
                 id="firstName"
                 placeholder="First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={registrationData.firstName}
+                onChange={handleChange}
                 required
                 className="auth-input"
               />
@@ -138,8 +149,8 @@ export function SignUp () {
                 type="text"
                 id="lastName"
                 placeholder="Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={registrationData.lastName}
+                onChange={handleChange}
                 required
                 className="auth-input"
               />
@@ -154,8 +165,8 @@ export function SignUp () {
                 type="email"
                 id="email"
                 placeholder="Email"
-                value={email}
-                onChange={handleEmailChange}
+                value={registrationData.email}
+                onChange={handleChange}
                 required
                 className="auth-input"
               />
@@ -170,7 +181,7 @@ export function SignUp () {
                 type="password"
                 id="password"
                 placeholder="Password"
-                value={password}
+                value={registrationData.password}
                 onChange={handlePasswordChange}
                 required
                 className="auth-input"

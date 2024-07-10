@@ -9,6 +9,8 @@ export interface TaskModel {
   assignedToId?: string
   status: string
   priority: string
+  projectId?: string
+
   createdDate?: Date | null
   assignedDate?: Date | null
   unassignedDate?: Date  | null

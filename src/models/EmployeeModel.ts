@@ -1,7 +1,8 @@
 export interface EmployeeModel {
-  id?: string
+  employeeId?: string
 	firstName: string
 	lastName: string
 	email: string
+  teamId?: string
 	roleId: number
 }

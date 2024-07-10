@@ -1,3 +1,5 @@
+import { RegistrationModel } from "../models/RegistrationModel";
+
 const BASE_URL = 'http://localhost:8080/auth';
 
 export const fetchCurrentUser = async (token: string) => {
@@ -18,11 +20,11 @@ export const login = async (email: string, password: string) => {
   return handleResponse(response);
 };
 
-export const signup = async (firstName: string, lastName: string, email: string, password: string) => {
+export const signup = async (registrationData: RegistrationModel) => {
   const response = await fetch(`${BASE_URL}/signup`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ firstName, lastName, email, password }),
+          body: JSON.stringify(registrationData),
   });
   return handleResponse(response);
 };
@@ -44,8 +46,8 @@ const handleResponse = async (response: Response) => {
       logout();
       throw new Error("Token is invalid or expired. Redirecting to home page.");
     } 
-    else if (response.status === 400 && errorData && errorData.error) {
-      throw new Error(errorData.error);
+    else if (response.status === 400 && errorData) {
+      throw errorData;
     } 
     else {
       throw new Error(errorData.message || 'Authentication failed');

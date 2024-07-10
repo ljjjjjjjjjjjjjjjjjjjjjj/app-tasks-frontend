@@ -1,7 +1,6 @@
-export interface EmployeeModel {
-  id?: string
-	firstName: string
-	lastName: string
-	email: string
-	roleId: number
+export interface RegistrationModel {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
 }

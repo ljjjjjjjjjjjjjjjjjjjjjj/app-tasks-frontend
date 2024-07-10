@@ -1,13 +1,8 @@
 import React, { createContext, useReducer, useContext, ReactNode, useEffect, useCallback } from 'react';
 import { fetchCurrentUser } from '../api/AuthApi';
+import { UserModel } from '../models/UserModel';
 
-type User = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  roles: string[];
-};
+type User = UserModel;
 
 type AuthState = {
   isAuthenticated: boolean;
