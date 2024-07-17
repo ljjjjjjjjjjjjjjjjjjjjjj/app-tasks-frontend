@@ -1,115 +1,138 @@
 import React, { useEffect, useState } from 'react';
 import { TaskModel } from '../../models/TaskModel';
-import { fetchAllTasks } from '../../api/TasksApi';
-import { useNavigate } from 'react-router-dom';
+import { fetchTasksByEmployeeId, fetchTasksByProjectId } from '../../api/TasksApi';
+import { ProjectModel } from '../../models/ProjectModel';
+import { fetchUserProjects } from '../../api/ProjectsApi';
+import { useAuth } from '../../context/AuthContext';
 import './Tasks.scss'
+import { TaskDescription } from './TaskDescription';
+import { TaskPageModal } from './TaskPageModal';
 
 export function Tasks () {
+  const { state } = useAuth();
+
   const [taskList, setTaskList] = useState<TaskModel[]>([]);
+  const [projectList, setProjectList] = useState<ProjectModel[]>([]);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const [selectedTask, setSelectedTask] = useState<TaskModel | null>(null);
+
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const getTaskList = async () => {
       try {
+        if (state.user?.employeeId) {
+          console.log(state.user.employeeId)
         setErrorMessage("");
-        const fetchedTasks = await fetchAllTasks();
-
+        const fetchedTasks = selectedProjectId
+            ? await fetchTasksByProjectId(selectedProjectId)
+            : await fetchTasksByEmployeeId(state.user.employeeId);
+        
         if (fetchedTasks.length === 0) {
           setErrorMessage("No tasks were found.");
         } else {
           setTaskList(fetchedTasks);
         }
+      }
       } catch (error) {
         console.error('Failed to fetch tasks', error);
         setErrorMessage("Failed to fetch tasks. Please try again later.");
       }
     };
 
+    const getUserProjects = async () => {
+      try {
+        if (state.user?.employeeId) {
+          const fetchedProjects = await fetchUserProjects(state.user.employeeId);
+          setProjectList(fetchedProjects);
+        }
+      } catch (error) {
+        console.error('Failed to fetch projects', error);
+      }
+    };
+
     getTaskList();
-  }, []);
+    getUserProjects();
+  }, [state.user, selectedProjectId]);
+
+  const handleProjectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const projectId = event.target.value;
+    setSelectedProjectId(projectId || null);
+  };
+
+  const filteredTasks = selectedProjectId
+  ? taskList.filter(task => task.projectId === selectedProjectId)
+  : taskList.filter(task => !task.projectId);
+
+  const getTasksByStatus = (status: string) => {
+    return filteredTasks.filter(task => task.status === status);
+  };
+
+  const openTaskModal = (task: TaskModel) => {
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
+
+  const closeTaskCard = () => { 
+    setSelectedTask(null);
+    setIsModalOpen(false);
+  };
 
     
-    return (
-      <div className='tasks-container'>
+  return (
+    <div className='tasks-container'>
 
-        <div className='tasks-header'>
+      <div className='tasks-header'>
 
-          <div className='tasks-header-title'>
-            <h1>Project title</h1>
-          </div>
+        <div className='tasks-header-title'>
 
-          <div className='tasks-header-subtitle'>
-            <h3>Other info</h3>
-          </div>
-
-          <div className='tasks-header-text'>
-            <p>Simple text</p>
-          </div>
-
-        </div>
-
-        <div className='tasks-status-container'>
-
-          <div className='tasks-status-item'>
-            <h3>Not started (number)</h3>
-
-            <div>
-              <p>1. There will be a list of tasks</p>
-              <p>2. There will be tasks</p>
-            </div>
-          </div>
-
-          <div className='tasks-status-item'>
-            <h3>In progress (number)</h3>
-
-            <div>
-              <p>1. There will be a list of tasks</p>
-              <p>2. There will be tasks</p>
-              <p>1. There will be a list of tasks</p>
-              <p>2. There will be tasks</p>
-              <p>1. There will be a list of tasks</p>
-              <p>2. There will be tasks</p>
-            </div>
-          </div>
-
-          <div className='tasks-status-item'>
-            <h3>In review (number)</h3>
-
-            <div>
-              <p>1. There will be a list of tasks</p>
-              <p>2. There will be tasks</p>
-            </div>
-          </div>
-
-          <div className='tasks-status-item'>
-            <h3>Done (number)</h3>
-
-            <div>
-              <p>1. There will be a list of tasks</p>
-              <p>2. There will be tasks</p>
-            </div>
-          </div>
-
-        </div>
-
-
-
-
-        <h1>Tasks</h1>
-        {taskList.length > 0 && (
-          <ul>
-            {taskList.map(task => (
-              <li key={task.taskId}>
-                {task.taskId}. {task.title} - Created by: {task.createdById} <br/>
-                {task.status} {task.priority && `(${task.priority})`} 
-                <button onClick={() => navigate(`/tasks/${task.taskId}`)} className='btn btn-primary'>View / Edit</button>
-                <p> </p>
-              </li>
+          {/* Dropdown list */}
+          <select onChange={handleProjectChange} value={selectedProjectId || ""}>
+            <option value="">Individual tasks</option>
+            {projectList.map(project => (
+              <option key={project.projectId} value={project.projectId}>
+                {project.projectName}
+              </option>
             ))}
-          </ul>
-        )}
-        {errorMessage && <p>{errorMessage}</p>} 
+          </select>
+      </div>
+
+        <div className='tasks-header-subtitle'>
+          <h3>Other info</h3>
+        </div>
+
+        <div className='tasks-header-text'>
+          <p>Simple text</p>
+        </div>
+
+      </div>
+
+
+      <div className='tasks-status-container'>
+        {['NOT_STARTED', 'IN_PROGRESS', 'IN_REVIEW', 'DONE'].map(status => (
+          <div className='tasks-status-item' key={status}>
+            <h3>{status.replace('_', ' ')} ({getTasksByStatus(status).length})</h3>
+            <div>
+            {getTasksByStatus(status).map(task => (
+                <TaskDescription key={task.taskId} task={task} onClick={() => openTaskModal(task)} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {isModalOpen && (
+        <div className='modal-overlay' onClick={closeTaskCard}>
+          <div className='modal-content' onClick={e => e.stopPropagation()}>
+            <button className='close-button' onClick={closeTaskCard}></button>
+            {selectedTask && <TaskPageModal task={selectedTask} />}
+          </div>
+        </div>
+      )}
+  
+      {errorMessage && <p>{errorMessage}</p>} 
+
     </div>
     );
   };

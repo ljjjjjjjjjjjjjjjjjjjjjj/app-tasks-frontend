@@ -15,7 +15,6 @@ import { SignUp } from './features/authentication/signup/SignUp';
 import { Overview } from './features/overview/Overview';
 import { Calendar } from './features/calendar/Calendar';
 import { Tasks } from './features/tasks/Tasks';
-import { TaskCard } from './features/tasks/TaskCard';
 import { Loader } from './components/common/Loader';
 import { Settings } from './features/settings/Settings';
 import { ErrorPage } from './components/error/ErrorPage';
@@ -67,12 +66,6 @@ export function App () {
               <Route path={AppRoutes.TASKS} element={
                 <ErrorBoundary>
                   <PrivateRoute><Tasks /></PrivateRoute>
-                </ErrorBoundary>                
-                } />
-
-              <Route path={AppRoutes.TASK} element={
-                <ErrorBoundary>
-                  <PrivateRoute><TaskCard /></PrivateRoute>
                 </ErrorBoundary>                
                 } />
 

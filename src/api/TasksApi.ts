@@ -15,8 +15,8 @@ export const fetchAllTasks = async (): Promise<TaskModel[]> => {
   return tasks;
 };
 
-export const fetchTaskById = async (id : string): Promise<TaskModel> => {
-  const response = await axios.get<TaskModel>(`${baseUrl}/${id}`);
+export const fetchTaskById = async (taskId : string): Promise<TaskModel> => {
+  const response = await axios.get<TaskModel>(`${baseUrl}/${taskId}`);
   const task = {
     ...response.data,
     createdDate: response.data.createdDate ? new Date(response.data.createdDate) : null,
@@ -25,6 +25,30 @@ export const fetchTaskById = async (id : string): Promise<TaskModel> => {
     doneDate: response.data.doneDate ? new Date(response.data.doneDate) : null,
   };
   return task;
+};
+
+export const fetchTasksByEmployeeId = async (employeeId : string): Promise<TaskModel[]> => {
+  const response = await axios.get<TaskModel[]>(`${baseUrl}/employee/${employeeId}`);
+  const tasks = response.data.map(task => ({
+    ...task,
+    createdDate: task.createdDate ? new Date(task.createdDate) : null,
+    assignedDate: task.assignedDate ? new Date(task.assignedDate) : null,
+    unassignedDate: task.unassignedDate ? new Date(task.unassignedDate) : null,
+    doneDate: task.doneDate ? new Date(task.doneDate) : null,
+  }));
+  return tasks;
+};
+
+export const fetchTasksByProjectId = async (projectId : string): Promise<TaskModel[]> => {
+  const response = await axios.get<TaskModel[]>(`${baseUrl}/project/${projectId}`);
+  const tasks = response.data.map(task => ({
+    ...task,
+    createdDate: task.createdDate ? new Date(task.createdDate) : null,
+    assignedDate: task.assignedDate ? new Date(task.assignedDate) : null,
+    unassignedDate: task.unassignedDate ? new Date(task.unassignedDate) : null,
+    doneDate: task.doneDate ? new Date(task.doneDate) : null,
+  }));
+  return tasks;
 };
 
 export const updateTask = async (task: TaskModel, taskId: string) => {
