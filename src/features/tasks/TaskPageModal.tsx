@@ -1,8 +1,8 @@
-import { TaskModel } from '../../models/TaskModel';
+import { TaskDetailedModel } from '../../models/TaskDetailedModel';
 import './TaskPageModal.scss'
 
 interface TaskPageModalProps {
-  task: TaskModel;
+  task: TaskDetailedModel;
 }
 
 export function TaskPageModal ({ task }: TaskPageModalProps) {
@@ -48,7 +48,7 @@ export function TaskPageModal ({ task }: TaskPageModalProps) {
 
       <div className='created'>
         <p className='task-mid-font'>
-          Created by: {task.createdById}
+          Created by: {task.createdByFirstName} {task.createdByLastName}
         </p>
         <p className='task-mid-font'>
           Created on: {formatDate(task.createdDate)}
@@ -57,7 +57,9 @@ export function TaskPageModal ({ task }: TaskPageModalProps) {
 
       <div className='if-assigned'>
         <p className='task-mid-font'>
-          Assigned to: {task.assignedToId}
+        Assigned to: {task.assignedToFirstName || task.assignedToLastName ? 
+          `${task.assignedToFirstName ?? ''} ${task.assignedToLastName ?? ''}`.trim() : 
+          'none'}
         </p>
         <p className='task-mid-font'>
           Assigned on: {formatDate(task.assignedDate)}

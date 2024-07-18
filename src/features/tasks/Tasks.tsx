@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { TaskModel } from '../../models/TaskModel';
-import { fetchTasksByEmployeeId, fetchTasksByProjectId } from '../../api/TasksApi';
+import { fetchTasksDetailedByEmployeeId, fetchTasksDetailedByProjectId } from '../../api/TasksApi';
 import { ProjectModel } from '../../models/ProjectModel';
 import { fetchUserProjects } from '../../api/ProjectsApi';
 import { useAuth } from '../../context/AuthContext';
 import './Tasks.scss'
 import { TaskDescription } from './TaskDescription';
 import { TaskPageModal } from './TaskPageModal';
+import { TaskDetailedModel } from '../../models/TaskDetailedModel';
 
 export function Tasks () {
   const { state } = useAuth();
 
-  const [taskList, setTaskList] = useState<TaskModel[]>([]);
+  const [taskList, setTaskList] = useState<TaskDetailedModel[]>([]);
   const [projectList, setProjectList] = useState<ProjectModel[]>([]);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
-  const [selectedTask, setSelectedTask] = useState<TaskModel | null>(null);
+  const [selectedTask, setSelectedTask] = useState<TaskDetailedModel | null>(null);
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -23,11 +23,10 @@ export function Tasks () {
     const getTaskList = async () => {
       try {
         if (state.user?.employeeId) {
-          console.log(state.user.employeeId)
         setErrorMessage("");
         const fetchedTasks = selectedProjectId
-            ? await fetchTasksByProjectId(selectedProjectId)
-            : await fetchTasksByEmployeeId(state.user.employeeId);
+            ? await fetchTasksDetailedByProjectId(selectedProjectId)
+            : await fetchTasksDetailedByEmployeeId(state.user.employeeId);
         
         if (fetchedTasks.length === 0) {
           setErrorMessage("No tasks were found.");
@@ -69,7 +68,7 @@ export function Tasks () {
     return filteredTasks.filter(task => task.status === status);
   };
 
-  const openTaskModal = (task: TaskModel) => {
+  const openTaskModal = (task: TaskDetailedModel) => {
     setSelectedTask(task);
     setIsModalOpen(true);
   };
