@@ -78,6 +78,12 @@ export function Tasks () {
     setIsModalOpen(false);
   };
 
+  const handleTaskUpdated = (updatedTask: TaskDetailedModel) => {
+    setTaskList(prevTasks =>
+      prevTasks.map(task => (task.taskId === updatedTask.taskId ? updatedTask : task))
+    );
+  };
+
     
   return (
     <div className='tasks-container'>
@@ -125,7 +131,9 @@ export function Tasks () {
         <div className='modal-overlay' onClick={closeTaskCard}>
           <div className='modal-content' onClick={e => e.stopPropagation()}>
             <button className='close-button' onClick={closeTaskCard}></button>
-            {selectedTask && <TaskPageModal task={selectedTask} />}
+            {selectedTask && (
+              <TaskPageModal task={selectedTask} onClose={closeTaskCard} onTaskUpdated={handleTaskUpdated} />
+            )}
           </div>
         </div>
       )}

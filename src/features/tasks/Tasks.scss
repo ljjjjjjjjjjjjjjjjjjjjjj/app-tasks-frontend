@@ -25,11 +25,20 @@
   height: 30px;
   padding: 0 10px;
   margin: 0 5px;
+
+  select{
+    height: 2rem;
+    border-radius: 6px;
+    border: 1px solid rgb(234, 232, 232);
+    font-weight: 500;
+
+  }
 }
 
 .tasks-header-subtitle {
+  height: 1.95rem;
   background-color: rgb(237, 235, 235);
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 1px;
 }
 

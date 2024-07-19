@@ -1,3 +1,4 @@
+import { PriorityCircle } from '../../components/common/PriorityCircle';
 import { TaskDetailedModel } from '../../models/TaskDetailedModel';
 import './TaskDescription.scss'
 
@@ -14,30 +15,12 @@ export function TaskDescription ({ task, onClick }: TaskDescriptionProps) {
     return description.length > 40 ? description.slice(0, 40) + '...' : description;
   };
 
-  const getPriorityClass = (priority: string) => {
-    switch (priority) {
-      case 'HIGHEST':
-        return 'priority-highest';
-      case 'HIGH':
-        return 'priority-high';
-      case 'MEDIUM':
-        return 'priority-medium';
-      case 'LOW':
-        return 'priority-low';
-      case 'LOWEST':
-        return 'priority-lowest';
-      default:
-        return '';
-    }
-  };
-
-
   return (
     <div className='task-item' onClick={onClick}>
 
       <p className='task-title'>
         {task.title} 
-        <span className={`priority-circle ${getPriorityClass(task.priority)}`}></span>
+        <PriorityCircle priority={task.priority} />
       </p>
       <p className='task-small-font'>
         {getShortDescription(task.description)}
