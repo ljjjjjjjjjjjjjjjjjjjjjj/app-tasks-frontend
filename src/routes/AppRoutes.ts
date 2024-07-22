@@ -9,6 +9,8 @@ export const AppRoutes = {
   SETTINGS: '/settings' as const,
   ERROR_PAGE: '/error' as const,
   ERROR_SERVER_PAGE: '/server-error' as const,
+
+  COLOURS: 'colours' as const,
 } as const;
 
 export type AppRoutesType = typeof AppRoutes[keyof typeof AppRoutes];

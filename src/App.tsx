@@ -13,7 +13,7 @@ import { Home } from './features/home/Home';
 import { Login } from './features/authentication/login/Login';
 import { SignUp } from './features/authentication/signup/SignUp';
 import { Overview } from './features/overview/Overview';
-import { Calendar } from './features/calendar/Calendar';
+import { CalendarPage } from './features/calendar/CalendarPage';
 import { Tasks } from './features/tasks/Tasks';
 import { Loader } from './components/common/Loader';
 import { Settings } from './features/settings/Settings';
@@ -21,6 +21,7 @@ import { ErrorPage } from './components/error/ErrorPage';
 import { LayoutError } from './layout/LayoutError';
 import { ErrorBackendDownPage } from './components/error/ErrorBackendDownPage';
 import ErrorBoundary from './components/error/ErrorBoundary';
+import CalendarExample from './features/calendar/CalendarExample';
 
 export function App () {
 
@@ -59,7 +60,7 @@ export function App () {
 
               <Route path={AppRoutes.CALENDAR} element={
                 <ErrorBoundary>                
-                  <PrivateRoute><Calendar /></PrivateRoute>
+                  <PrivateRoute><CalendarPage /></PrivateRoute>
                 </ErrorBoundary>                
                 } />
 
@@ -74,6 +75,13 @@ export function App () {
                   <PrivateRoute><Settings /></PrivateRoute>
                 </ErrorBoundary>                
                 } />
+
+              <Route path={AppRoutes.COLOURS} element={
+                <ErrorBoundary>
+                  <PrivateRoute><CalendarExample /></PrivateRoute>
+                </ErrorBoundary>                
+                } /> 
+
             </Route>
 
             <Route element={<LayoutError />}>
