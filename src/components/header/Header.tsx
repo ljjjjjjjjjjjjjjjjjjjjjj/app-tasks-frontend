@@ -28,7 +28,7 @@ export function Header() {
     <div className="header-inner">
 
       <div className="company-logo-container">
-        <img src="/images/company-logo.jpg" alt="Company Logo" className="company-logo" />
+        <img src="/images/task-logo.jpg" alt="Company Logo" className="company-logo" />
       </div>
 
       <div className="user-info-container">

@@ -3,10 +3,11 @@ import { fetchTasksDetailedByEmployeeId, fetchTasksDetailedByProjectId } from '.
 import { ProjectModel } from '../../models/ProjectModel';
 import { fetchUserProjects } from '../../api/ProjectsApi';
 import { useAuth } from '../../context/AuthContext';
-import './Tasks.scss'
 import { TaskDescription } from './TaskDescription';
 import { TaskPageModal } from './TaskPageModal';
 import { TaskDetailedModel } from '../../models/TaskDetailedModel';
+
+import './Tasks.scss'
 
 export function Tasks () {
   const { state } = useAuth();
@@ -104,11 +105,11 @@ export function Tasks () {
       </div>
 
         <div className='tasks-header-subtitle'>
-          <h3>Other info</h3>
+          <h3>Other select</h3>
         </div>
 
-        <div className='tasks-header-text'>
-          <p>Simple text</p>
+        <div className='tasks-header-subtitle'>
+          <h3>Another select</h3>
         </div>
 
       </div>

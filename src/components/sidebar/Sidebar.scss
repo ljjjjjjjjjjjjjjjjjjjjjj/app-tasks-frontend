@@ -1,6 +1,6 @@
 .sidebar {
   width: 120px;
-  background-color: rgb(201, 230, 239);
+  background-color:#cce5ff;
   color: rgb(56, 55, 55);
   display: flex;
   flex-direction: column;
@@ -13,18 +13,18 @@
   .btn {
     margin: 5px 0;
     width: 100%;
-    background-color: rgb(162, 205, 220);
+    background-color: #66b0ff;
     color: white;
     border: none;
     &.active {
-      background-color: rgb(128, 176, 194);
+      background-color: #007bff;
       color: white;
     }
 
   }
 
   .btn:hover {
-    background-color: rgb(142, 189, 206);
+    background-color: #007bff;
     color: white;
   }
 
