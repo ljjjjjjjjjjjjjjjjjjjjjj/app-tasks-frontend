@@ -15,11 +15,13 @@ import { SignUp } from './features/authentication/signup/SignUp';
 import { Overview } from './features/overview/Overview';
 import { CalendarPage } from './features/calendar/CalendarPage';
 import { Tasks } from './features/tasks/Tasks';
+import { Projects } from './features/projects/Projects';
 import { Loader } from './components/common/Loader';
 import { Settings } from './features/settings/Settings';
 import { ErrorPage } from './components/error/ErrorPage';
 import { LayoutError } from './layout/LayoutError';
 import { ErrorBackendDownPage } from './components/error/ErrorBackendDownPage';
+
 import ErrorBoundary from './components/error/ErrorBoundary';
 import CalendarExample from './features/calendar/CalendarExample';
 
@@ -50,37 +52,50 @@ export function App () {
                 <ErrorBoundary>
                   <PublicRoute><Home /></PublicRoute>
                 </ErrorBoundary>                
-                } />
+                }
+              />
 
               <Route path={AppRoutes.OVERVIEW} element={
                 <ErrorBoundary>               
                   <PrivateRoute><Overview /></PrivateRoute>
                 </ErrorBoundary>                
-                } />
+                }
+              />
 
               <Route path={AppRoutes.CALENDAR} element={
                 <ErrorBoundary>                
                   <PrivateRoute><CalendarPage /></PrivateRoute>
                 </ErrorBoundary>                
-                } />
+                } 
+              />
 
               <Route path={AppRoutes.TASKS} element={
                 <ErrorBoundary>
                   <PrivateRoute><Tasks /></PrivateRoute>
                 </ErrorBoundary>                
-                } />
+                }
+              />
+
+              <Route path={AppRoutes.PROJECTS} element={
+                <ErrorBoundary>
+                  <PrivateRoute><Projects /></PrivateRoute>
+                </ErrorBoundary>                
+                }
+              />
 
               <Route path={AppRoutes.SETTINGS} element={
                 <ErrorBoundary>
                   <PrivateRoute><Settings /></PrivateRoute>
                 </ErrorBoundary>                
-                } />
+                }
+              />
 
               <Route path={AppRoutes.COLOURS} element={
                 <ErrorBoundary>
                   <PrivateRoute><CalendarExample /></PrivateRoute>
                 </ErrorBoundary>                
-                } /> 
+                }
+              /> 
 
             </Route>
 

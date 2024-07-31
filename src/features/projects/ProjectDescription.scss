@@ -1,5 +1,6 @@
-.task-item {
+.project-item {
   height: auto;
+  width: 100%;
   border-radius: 8px;
   border: 1px solid rgb(240, 240, 240);
 
@@ -15,30 +16,7 @@
   margin-top: 1px;
   margin-bottom: 5px;
 
-  .task-title-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-
-    margin-top: 1px;
-    margin-bottom: 0px;
-    margin-left: 4px;
-    margin-right: 4px;
-
-    padding: 0px;
-
-  }
-
-  .task-title-text {
-    overflow: hidden;
-
-  }
-
-  .task-title-priority {
-    display: flex;
-    justify-content: space-between;
-    
-    
+  .project-title {
     margin-top: 1px;
     margin-bottom: 0px;
     margin-left: 4px;
@@ -47,17 +25,7 @@
     padding: 0px;
   }
 
-  .task-medium-text {
-    font-size: 0.85rem;
-    color: rgb(28, 27, 27);
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    
-  }
-
-  .task-small-font {
+  .project-small-font {
     margin-top: 0px;
     margin-bottom: 1px;
     margin-left: 4px;
@@ -65,9 +33,11 @@
 
     padding: 0px;
 
-    font-size: 0.8rem;
+    font-size: 0.8em;
     color: gray;
-  
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &:hover {
@@ -91,6 +61,14 @@
   align-items: center;
 }
 
+.project-card {
+  background-color: white;
+  width: 45%;
+  height: 70%;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+}
 
 .close-button {
   position: absolute;

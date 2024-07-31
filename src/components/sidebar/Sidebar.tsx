@@ -42,6 +42,13 @@ export function Sidebar() {
           >
             Tasks
           </button>
+
+          <button
+            onClick={() => handleNavigate(AppRoutes.PROJECTS)}
+            className={`btn ${isActive(AppRoutes.PROJECTS) ? 'active' : ''}`}
+          >
+            Projects
+          </button>
     
           <button
             onClick={() => handleNavigate(AppRoutes.CALENDAR)}

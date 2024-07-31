@@ -18,10 +18,18 @@ export function TaskDescription ({ task, onClick }: TaskDescriptionProps) {
   return (
     <div className='task-item' onClick={onClick}>
 
-      <p className='task-title'>
-        {task.title} 
-        <PriorityCircle priority={task.priority} />
-      </p>
+      <div className='task-title-box'>
+
+        <div className='task-title-text'>
+          <p className='task-medium-text'>{task.title}</p>
+        </div>
+
+        <div className='task-title-priority'>
+          <PriorityCircle priority={task.priority} />
+        </div>
+
+      </div>
+
       <p className='task-small-font'>
         {getShortDescription(task.description)}
       </p>

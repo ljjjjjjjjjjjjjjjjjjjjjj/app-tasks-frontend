@@ -1,7 +1,8 @@
 export interface ProjectModel {
 	projectId?: string
   projectName: string
-  teamId: string
+  teamIds: string []
+  participantIds: string []
   createdById: string
   status: string
   progress: number

@@ -102,7 +102,7 @@ export const fetchTasksByProjectId = async (projectId : string): Promise<TaskMod
 };
 
 export const fetchTasksDetailedByProjectId = async (projectId : string): Promise<TaskDetailedModel[]> => {
-  const response = await axios.get<TaskDetailedModel[]>(`${baseUrl}/project/${projectId}`);
+  const response = await axios.get<TaskDetailedModel[]>(`${baseUrl}/detailed/project/${projectId}`);
   const tasks = response.data.map(task => ({
     ...task,
     createdDate: task.createdDate ? new Date(task.createdDate) : null,

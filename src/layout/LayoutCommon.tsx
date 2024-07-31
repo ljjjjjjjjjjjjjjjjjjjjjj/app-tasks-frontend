@@ -33,6 +33,9 @@ export function LayoutCommon () {
       case AppRoutes.TASK:
         dispatch(setCurrentPage(AppRoutes.TASKS));
         break;
+      case AppRoutes.PROJECTS:
+        dispatch(setCurrentPage(AppRoutes.PROJECTS));
+        break;  
       case AppRoutes.SETTINGS:
         dispatch(setCurrentPage(AppRoutes.SETTINGS));
         break;
