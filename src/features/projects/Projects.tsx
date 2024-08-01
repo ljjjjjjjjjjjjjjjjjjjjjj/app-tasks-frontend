@@ -90,19 +90,7 @@ export function Projects () {
             <option value='NOT_STARTED'>Not Started</option>
             <option value='DONE'>Done</option>
           </select>
-        </div>
-
-        {/* Dropdown list - Team*/}
-        <div className='projects-header-subtitle'>
-          <select onChange={handleStatusChange} value={selectedStatus}>
-            <option value='ACTIVE'>Active</option>
-            <option value='IN_PROGRESS'>In Progress</option>
-            <option value='IN_REVIEW'>In Review</option>
-            <option value='NOT_STARTED'>Not Started</option>
-            <option value='DONE'>Done</option>
-          </select>
-        </div>
-        
+        </div> 
 
         <div className='projects-header-subtitle'>
           <h3>Other select</h3>
@@ -116,10 +104,18 @@ export function Projects () {
 
 
       <div className='projects-status-container'>
-      <h3>{formatStatus(selectedStatus)}</h3>
-        {projectList.map(project => (
-          <ProjectDescription key={project.projectId} project={project} onClick={() => openProjectModal(project)} />
-        ))}
+        <h3>{formatStatus(selectedStatus)}</h3>
+
+        <div className='projects-status-items'>
+          {projectList.length === 0 ? (
+            <p>No projects</p>
+          ) : (
+            projectList.map(project => (
+              <ProjectDescription key={project.projectId} project={project} onClick={() => openProjectModal(project)} />
+            ))
+          )}
+        </div>
+
       </div>
 
       {isModalOpen && (

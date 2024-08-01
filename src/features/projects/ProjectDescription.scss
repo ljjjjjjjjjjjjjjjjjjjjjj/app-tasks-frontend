@@ -8,15 +8,40 @@
 
   padding-top: 1px;
   padding-right: 0px;
-  padding-bottom: 1px;
+  padding-bottom: 10px;
   padding-left: 0px;
 
   margin-left: 1px;
   margin-right: 1px;
   margin-top: 1px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 
-  .project-title {
+  .project-title-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    padding: 0px;
+
+  }
+
+  .task-title-text {
+    overflow: hidden;
+
+  }
+
+  .project-title-priority {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 30px;
+    max-width: 30px;
+    
     margin-top: 1px;
     margin-bottom: 0px;
     margin-left: 4px;
@@ -25,19 +50,68 @@
     padding: 0px;
   }
 
-  .project-small-font {
-    margin-top: 0px;
-    margin-bottom: 1px;
-    margin-left: 4px;
-    margin-right: 4px;
+  .project-title-priority svg {
+    max-height: 100%;
+    max-width: 100%;
+  }
 
+
+  .project-medium-text {
+    padding: 0px;
+    margin: 0px;
+
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgb(65, 65, 65);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+  }
+
+  .project-timeline,
+  .project-employees,
+  .project-teams {
+    margin-top: 5px;
+    margin-bottom: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    h3{
+      padding: 0px;
+      margin: 0px;
+  
+      font-size: 0.85em;
+      color: gray;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    p {
+      padding: 0px;
+      margin: 0px;
+  
+      font-size: 0.8em;
+      color: gray;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;  
+    }
+  }
+
+  .project-no-margins {
+    margin: 0px;
     padding: 0px;
 
     font-size: 0.8em;
     color: gray;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;  
+    
+    
   }
 
   &:hover {
