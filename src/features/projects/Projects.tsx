@@ -15,7 +15,6 @@ export function Projects () {
 
   const [projectList, setProjectList] = useState<ProjectDetailedModel[]>([]);
   const [selectedProject, setSelectedProject] = useState<ProjectDetailedModel | null>(null);
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
 
   const [selectedStatus, setSelectedStatus] = useState<string>('ACTIVE');
 
@@ -45,11 +44,6 @@ export function Projects () {
 
     getUserProjects();
   }, [state.user, selectedStatus]);
-
-  const handleProjectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const projectId = event.target.value;
-    setSelectedProjectId(projectId || null);
-  };
 
   const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedStatus(event.target.value);
@@ -81,7 +75,6 @@ export function Projects () {
 
       <div className='projects-header'>
 
-        {/* Dropdown list - STATUS*/}
         <div className='projects-header-subtitle'>
           <select onChange={handleStatusChange} value={selectedStatus}>
             <option value='ACTIVE'>Active</option>
@@ -93,7 +86,7 @@ export function Projects () {
         </div> 
 
         <div className='projects-header-subtitle'>
-          <h3>Other select</h3>
+          <button className='new-project-button'>Create new project</button>
         </div>
 
         <div className='projects-header-subtitle'>

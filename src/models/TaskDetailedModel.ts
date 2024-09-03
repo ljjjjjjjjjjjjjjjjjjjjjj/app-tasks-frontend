@@ -1,4 +1,5 @@
 import { CategoryModel } from "./CategoryModel";
+import { EmployeeNameAndImageModel } from "./EmployeeNameAndImageModel";
 
 export interface TaskDetailedModel {
 	taskId?: string
@@ -6,13 +7,9 @@ export interface TaskDetailedModel {
   category?: CategoryModel
   description?: string
 
-  assignedToId?: string
-  assignedToFirstName?: string
-  assignedToLastName?: string
+  assignedToEmployee?: EmployeeNameAndImageModel
   
-  createdById: string
-  createdByFirstName: string
-  createdByLastName: string
+  createdByEmployee: EmployeeNameAndImageModel
 
   status: string
   priority: string

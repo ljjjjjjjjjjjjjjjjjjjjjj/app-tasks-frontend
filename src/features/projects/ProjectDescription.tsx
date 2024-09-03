@@ -1,3 +1,4 @@
+import { EmployeeImageDisplay } from '../../components/common/EmployeeImageDisplay';
 import { ProgressCircle } from '../../components/common/ProgressCircle';
 import { ProjectDetailedModel } from '../../models/ProjectDetailedModel';
 import './ProjectDescription.scss'
@@ -71,8 +72,9 @@ export function ProjectDescription ({ project, onClick }: ProjectDescriptionProp
             <p>none</p>
           ) : (
             project.participants.map((participant, index) => (
-            <div key={index}>
-              <p>{participant.firstName} {participant.lastName}</p>
+            <div key={index} className="employee-item">
+              <EmployeeImageDisplay employee={participant}/>
+              <p className="employee-name">{participant.firstName} {participant.lastName}</p>
             </div>
             ))
           )}
@@ -93,12 +95,6 @@ export function ProjectDescription ({ project, onClick }: ProjectDescriptionProp
           )}
         </div>        
       </div>
-
-      
-
-
-      
-
      
     </div>
   );

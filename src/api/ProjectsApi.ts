@@ -20,7 +20,7 @@ export const fetchUserProjectsByStatus = async (employeeId: string, status: stri
   return response.data;
 };
 
-export const updateProject = async (project: ProjectDetailedModel, projectId: string): Promise<ProjectModel> => {
+export const updateProject = async (project: ProjectModel, projectId: string): Promise<ProjectModel> => {
   const response = await axios.put<ProjectModel>(`${baseUrl}/${projectId}`, project);
   return response.data;
 };

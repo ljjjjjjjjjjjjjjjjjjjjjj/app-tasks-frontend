@@ -85,6 +85,30 @@ export function Tasks () {
     );
   };
 
+  const createNewTask = () => {
+    const newTask : TaskDetailedModel = {
+      taskId: '',
+        title: '',
+        description: '',
+        priority: 'MEDIUM',
+        status: 'NOT_STARTED',
+        projectId: '',
+        category: { categoryId: '', name: '' },
+        assignedToEmployee: undefined,
+        createdByEmployee: {
+            employeeId: state.user?.employeeId || '',
+            firstName: state.user?.firstName || 'Unknown',
+            lastName: state.user?.lastName || 'User',
+            imageId: '',
+            imageData: ''
+        },
+        createdDate: new Date(),
+        assignedDate: new Date(),
+    };
+    setSelectedTask(newTask);
+    setIsModalOpen(true);
+  };
+
     
   return (
     <div className='tasks-container'>
@@ -105,7 +129,7 @@ export function Tasks () {
       </div>
 
         <div className='tasks-header-subtitle'>
-          <h3>Other select</h3>
+          <button onClick={createNewTask}>Create new task</button>
         </div>
 
         <div className='tasks-header-subtitle'>

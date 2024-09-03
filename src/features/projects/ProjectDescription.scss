@@ -81,6 +81,7 @@
     h3{
       padding: 0px;
       margin: 0px;
+      margin-bottom: 5px;
   
       font-size: 0.85em;
       color: gray;
@@ -98,6 +99,31 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;  
+    }
+  }
+
+  .project-employees {
+    .employee-item {
+      display: flex;
+      align-items: center;  
+      margin-bottom: 10px;
+
+      .employee-image {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;  // round
+        border: 2px solid white;
+        margin-right: 10px;
+      }
+
+      .employee-name {
+        margin: 0;
+        font-size: 0.8em;
+        color: gray;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 

@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import { CategoryModel } from '../../models/CategoryModel';
-import { EmployeeModel } from '../../models/EmployeeModel';
 import { TaskDetailedModel } from '../../models/TaskDetailedModel';
 import { ProjectModel } from '../../models/ProjectModel';
 import { fetchUserProjects } from '../../api/ProjectsApi';
 import { useAuth } from '../../context/AuthContext';
-import { updateTask } from '../../api/TasksApi';
+import { createTask, fetchTaskDetailedyId, updateTask } from '../../api/TasksApi';
 import { createCategory, fetchCategories } from '../../api/CategoriesApi';
-import { fetchEmployees } from '../../api/EmployeesApi';
+import { fetchEmployeesWithImagesAll } from '../../api/EmployeesApi';
 import { CustomSelect } from '../../components/common/CustomSelect';
 
 import './TaskPageModal.scss'
+import { TaskModel } from '../../models/TaskModel';
+import { CustomDropdown } from '../../components/common/CustomDropdown';
+import { EmployeeNameAndImageModel } from '../../models/EmployeeNameAndImageModel';
 
 interface TaskPageModalProps {
   task: TaskDetailedModel;
@@ -30,11 +32,12 @@ export function TaskPageModal ({ task, onClose, onTaskUpdated }: TaskPageModalPr
   const { state } = useAuth();
   
   const [categories, setCategories] = useState<CategoryModel[]>([]);
-  const [employees, setEmployees] = useState<EmployeeModel[]>([]);
+  const [employees, setEmployees] = useState<EmployeeNameAndImageModel[]>([]);
   const [projects, setProjects] = useState<ProjectModel[]>([]);
   const [formTask, setFormTask] = useState<TaskDetailedModel>({ ...task });
+  const [newAssignedToId, setNewAssignedToId] = useState<string>('');
 
-  // fetching all relevant fields
+  
   useEffect(() => {
     const getCategories = async () => {
       const categoriesData = await fetchCategories();
@@ -42,7 +45,7 @@ export function TaskPageModal ({ task, onClose, onTaskUpdated }: TaskPageModalPr
     };
 
     const getEmployees = async () => {
-      const employeesData = await fetchEmployees();
+      const employeesData = await fetchEmployeesWithImagesAll();
       setEmployees(employeesData);
     };
 
@@ -92,22 +95,55 @@ export function TaskPageModal ({ task, onClose, onTaskUpdated }: TaskPageModalPr
     }
   };
 
+  const handleAssignEmployee = () => { 
+    const selectedEmployee = employees.find(emp => emp.employeeId === newAssignedToId);
+    if (selectedEmployee) {
+      setFormTask(prevState => ({
+        ...prevState,
+        assignedToEmployee: selectedEmployee,
+      }));
+      setNewAssignedToId('');
+    }
+  };
+
   // Submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await updateTask(formTask, formTask.taskId!);
-      onTaskUpdated(formTask);
+      const taskToSave: TaskModel = {
+          taskId: formTask.taskId,
+          title: formTask.title,
+          category: formTask.category,
+          description: formTask.description,
+          createdById: state.user?.employeeId || '',
+          assignedToId: formTask.assignedToEmployee?.employeeId,
+          status: formTask.status,
+          priority: formTask.priority,
+          projectId: formTask.projectId,
+          createdDate: formTask.createdDate,
+          assignedDate: formTask.assignedDate,
+          unassignedDate: formTask.unassignedDate,
+          doneDate: formTask.doneDate,
+      };
+
+      if (!formTask.taskId && state.user) {
+          const createdTask = await createTask(taskToSave);
+          const detailedTask = await fetchTaskDetailedyId(createdTask.taskId!);
+          onTaskUpdated(detailedTask);
+      } else {
+          await updateTask(taskToSave, formTask.taskId!);
+          onTaskUpdated(formTask);
+      }
       onClose();
     } catch (error) {
-      console.error('Failed to update task', error);
+      console.error('Failed to save task', error);
     }
   };
 
 
   return (
     <div className="task-modal">
-      <h3 className='task-title'>{task.title}</h3>
+      <h3 className='task-title'>{task.taskId ? task.title : "New task"} </h3>
       
       <form onSubmit={handleSubmit}>
 
@@ -155,23 +191,13 @@ export function TaskPageModal ({ task, onClose, onTaskUpdated }: TaskPageModalPr
 
 
         <div className='task-form-item'>
-          <label htmlFor="assignedToId">
-            Assigned To:
-          </label>
-          <select 
-            id="assignedToId" 
-            name="assignedToId" 
-            value={formTask.assignedToId || ''} 
-            onChange={handleChange}>
-              <option value="">
-                None
-              </option>
-              {employees.map(employee => (
-                <option key={employee.employeeId} value={employee.employeeId}>
-                  {employee.firstName} {employee.lastName}
-                </option>
-              ))}
-          </select>
+          <CustomDropdown   
+            labelTitle="Assigned To: "
+            employees={employees}   
+            setSelectedEmployeeId={setNewAssignedToId}   
+            handleEmployeeAction={handleAssignEmployee}  
+            placeholderText="Search employee..."    
+          />
         </div>
 
 

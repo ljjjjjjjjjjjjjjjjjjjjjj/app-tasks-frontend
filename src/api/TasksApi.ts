@@ -127,7 +127,14 @@ export const updateTask = async (task: TaskModel, taskId: string) => {
 }
 
 export const createTask = async (task: TaskModel): Promise<TaskModel> => {
-  const response = await axios.post(baseUrl, task);
+  const taskCreate = {
+    ...task,
+    createdDate: task.createdDate ? task.createdDate.toISOString() : null,
+    assignedDate: task.assignedDate ? task.assignedDate.toISOString() : null,
+    unassignedDate: task.unassignedDate ? task.unassignedDate.toISOString() : null,
+    doneDate: task.doneDate ? task.doneDate.toISOString() : null,
+  };
+  const response = await axios.post(baseUrl, taskCreate);
 
   return response.data;
 }

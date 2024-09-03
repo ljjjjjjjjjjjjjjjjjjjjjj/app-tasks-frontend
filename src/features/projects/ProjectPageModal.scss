@@ -13,7 +13,8 @@
 .modal-content {
   background-color: white;
   width: 45%;
-  height: 70%;
+  height: auto;
+  min-height: 70%;
   padding: 20px;
   position: relative;
   border-radius: 8px;
@@ -52,6 +53,17 @@
 
 .project-modal{
   width: 90%;
+
+  h1{
+    font-size: 1.4rem;
+    margin-bottom: 1px;
+  }
+
+  h3{
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
 }
 
 .project-form-item{
@@ -63,9 +75,56 @@
 
 }
 
+.project-form-item-with-new-line{
+  display: block;
+  align-items: top; /* Center vertically */
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+
+.project-form-item,
+.project-form-item-with-new-line{
+
+  .employee-item {
+    display: flex;
+    align-items: center;  
+    margin-bottom: 10px;
+
+    .employee-image {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;  // round
+      border: 2px solid white;
+      margin-right: 10px;
+    }
+
+    .employee-name {
+      margin: 0;
+      font-size: 0.8em;
+      color: gray;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  label{
+    font-weight: 600;
+  }
+
+}
+
 .project-form-item label {
   flex: 0 0 30%;  /* 1/3 of the width */
   text-align: left;
+}
+
+.project-form-item-with-new-line label {
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 50px;
 }
 
 .project-form-item input,
@@ -110,6 +169,11 @@
     background-color: rgb(36, 119, 192);
     font-size: 1.1rem;
   }
+}
+
+.new-line-list-items{
+  margin: 0px;
+  display: block;
 }
 
 

@@ -47,7 +47,8 @@ const handleResponse = async (response: Response) => {
       throw new Error("Token is invalid or expired. Redirecting to home page.");
     } 
     else if (response.status === 400 && errorData) {
-      throw errorData;
+      const errorMessage = errorData.error || 'Authentication failed';
+      throw new Error(errorMessage);
     } 
     else {
       throw new Error(errorData.message || 'Authentication failed');

@@ -8,7 +8,7 @@ interface TaskDescriptionProps {
 }
 
 export function TaskDescription ({ task, onClick }: TaskDescriptionProps) {
-  const isAssigned = task.assignedToFirstName || task.assignedToLastName;
+  const isAssigned = task.assignedToEmployee;
 
   const getShortDescription = (description: string | undefined) => {
     if (!description) return "";
@@ -34,7 +34,7 @@ export function TaskDescription ({ task, onClick }: TaskDescriptionProps) {
         {getShortDescription(task.description)}
       </p>
       <p className='task-small-font'>
-         Assigned to: {isAssigned ? `${task.assignedToFirstName ?? ''} ${task.assignedToLastName ?? ''}`.trim() : 'none'}
+         Assigned to: {isAssigned ? `${task.assignedToEmployee?.firstName ?? ''} ${task.assignedToEmployee?.lastName ?? ''}`.trim() : 'none'}
       </p>
     </div>
   );

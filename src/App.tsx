@@ -25,6 +25,8 @@ import { ErrorBackendDownPage } from './components/error/ErrorBackendDownPage';
 import ErrorBoundary from './components/error/ErrorBoundary';
 import CalendarExample from './features/calendar/CalendarExample';
 
+import './App.scss';
+
 export function App () {
 
   return (

@@ -1,12 +1,12 @@
-import { EmployeeNameModel } from "./EmployeeNameModel"
+import { EmployeeNameAndImageModel } from "./EmployeeNameAndImageModel"
 import { TeamNameModel } from "./TeamNameModel"
 
 export interface ProjectDetailedModel {
 	projectId?: string
   projectName: string
   teams: TeamNameModel []
-  participants: EmployeeNameModel []
-  createdById: EmployeeNameModel []
+  participants: EmployeeNameAndImageModel []
+  createdByEmployee: EmployeeNameAndImageModel
   status: string
   progress: number
   
