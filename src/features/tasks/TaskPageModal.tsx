@@ -96,20 +96,23 @@ export function TaskPageModal ({ task, onClose, onTaskUpdated }: TaskPageModalPr
     }
   };
 
-  const handleAssignEmployee = () => { 
-    const selectedEmployee = employees.find(emp => emp.employeeId === newAssignedToId);
+  const handleAssignEmployee = (employeeId: string) => { 
+    const selectedEmployee = employees.find(emp => emp.employeeId === employeeId);
+
     if (selectedEmployee) {
       setFormTask(prevState => ({
         ...prevState,
         assignedToEmployee: selectedEmployee,
       }));
-      setNewAssignedToId('');
     }
   };
 
   // Submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    console.log(`handleSubmit - ${formTask.assignedToEmployee?.employeeId}`);
+    
     try {
       const taskToSave: TaskModel = {
           taskId: formTask.taskId,
@@ -135,7 +138,10 @@ export function TaskPageModal ({ task, onClose, onTaskUpdated }: TaskPageModalPr
           await updateTask(taskToSave, formTask.taskId!);
           onTaskUpdated(formTask);
       }
+
+      setNewAssignedToId('');
       onClose();
+
     } catch (error) {
       console.error('Failed to save task', error);
     }
