@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { ProjectDetailedModel } from '../../models/ProjectDetailedModel';
 import { updateProject } from '../../api/ProjectsApi';
 import { fetchEmployeesWithImagesAll } from '../../api/EmployeesApi';
+import { format } from 'date-fns';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import './ProjectPageModal.scss'
 import { TeamNameModel } from '../../models/TeamNameModel';
@@ -224,6 +227,72 @@ export function ProjectPageModal ({ project, onClose, onProjectUpdated }: Projec
             <option value="IN_REVIEW">In Review</option>
             <option value="DONE">Done</option>
           </select>
+        </div>
+
+        {formProject.status.toLowerCase() === 'done' && (
+          <div className='project-form-item'>
+            <label htmlFor="endDate">
+              End date:
+            </label>
+            <input 
+              type="text" 
+              id="endDate" 
+              value={formProject.endDate 
+                ? format(new Date(formProject.endDate), 'dd MMMM yyyy, HH:mm') 
+                : ''}
+              readOnly 
+            />
+          </div>
+        )}
+
+        {formProject.status.toLowerCase() !== 'not started' && (
+          <div className='project-form-item'>
+            <label htmlFor="startDate">
+              Start date:
+            </label>
+            <input 
+              type="text" 
+              id="startDate" 
+              value={formProject.startDate 
+                ? format(new Date(formProject.startDate), 'dd MMMM yyyy, HH:mm') 
+                : ''}
+              readOnly 
+            />
+          </div>
+        )}
+
+        
+        <div className='project-form-item'>
+          <label htmlFor="initialDeadlineDate">
+            Deadline:
+          </label>
+          <DatePicker
+            selected={formProject.initialDeadlineDate ? new Date(formProject.initialDeadlineDate) : null}
+            onChange={(date: Date | null) => {
+              setFormProject(prevState => ({
+                ...prevState,
+                initialDeadlineDate: date,
+              }));
+            }}
+            showTimeSelect
+            dateFormat="dd MMMM yyyy, HH:mm" 
+            timeFormat="HH:mm" 
+            placeholderText="Select deadline"
+            className="datepicker-input"
+          />
+        </div>
+        
+
+        <div className='project-form-item'>
+          <label htmlFor="createdByEmployee">
+            Created by:
+          </label>
+          <input 
+            type="text" 
+            id="createdByEmployee" 
+            value={`${formProject.createdByEmployee.firstName} ${formProject.createdByEmployee.lastName}`} 
+            readOnly 
+          />
         </div>
 
 

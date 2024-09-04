@@ -11,7 +11,8 @@ interface CustomDropdownProps {
   setSelectedEmployeeId: (id: string) => void;
   handleEmployeeAction: (id: string) => void;
   placeholderText?: string;  
-  resetTrigger?: boolean;  
+  resetTrigger?: boolean;
+  initialEmployeeName?: string;
 }
 
 export const CustomDropdown: React.FC<CustomDropdownProps> = ({ 
@@ -20,11 +21,19 @@ export const CustomDropdown: React.FC<CustomDropdownProps> = ({
   handleEmployeeAction, 
   labelTitle,
   placeholderText,  
-  resetTrigger,  
+  resetTrigger, 
+  initialEmployeeName,  
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Set the search term when the component first mounts or when initialEmployeeName changes
+    if (initialEmployeeName) {
+      setSearchTerm(initialEmployeeName);
+    }
+  }, [initialEmployeeName]);
 
   useEffect(() => {
     if (resetTrigger) {

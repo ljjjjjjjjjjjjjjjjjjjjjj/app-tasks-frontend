@@ -130,14 +130,22 @@
 .project-form-item input,
 .project-form-item select,
 .project-form-item textarea,
-.project-form-item .custom-select {
+.project-form-item .custom-select,
+.project-form-item .datepicker-input{
   min-height: 1.95rem;
   font-size: 1rem;
   flex: 1 0 70%;
   background-color: rgb(250, 251, 255);
   border-radius: 6px;
   border: 1px solid rgb(234, 232, 232);
+
+  .datepicker-input{
+    width: 100% !important;
+    margin: 0px !important;
+  }
 }
+
+
 
 .project-form-submit-buttons{
   display: flex;

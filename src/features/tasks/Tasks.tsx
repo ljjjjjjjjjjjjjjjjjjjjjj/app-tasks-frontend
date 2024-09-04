@@ -118,7 +118,7 @@ export function Tasks () {
         <div className='tasks-header-title'>
 
           {/* Dropdown list */}
-          <select onChange={handleProjectChange} value={selectedProjectId || ""}>
+          <select className='select-basic' onChange={handleProjectChange} value={selectedProjectId || ""}>
             <option value="">Individual tasks</option>
             {projectList.map(project => (
               <option key={project.projectId} value={project.projectId}>
@@ -129,11 +129,11 @@ export function Tasks () {
       </div>
 
         <div className='tasks-header-subtitle'>
-          <button onClick={createNewTask}>Create new task</button>
+          <button onClick={createNewTask} className='button-basic-gray'>Create new task</button>
         </div>
 
         <div className='tasks-header-subtitle'>
-          <h3>Another select</h3>
+          <button className='button-basic-gray'>Another select</button>
         </div>
 
       </div>

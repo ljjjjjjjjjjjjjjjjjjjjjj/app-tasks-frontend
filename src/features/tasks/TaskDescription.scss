@@ -49,6 +49,7 @@
 
   .task-medium-text {
     font-size: 0.85rem;
+    font-weight: 500;
     color: rgb(28, 27, 27);
 
     white-space: nowrap;
@@ -67,6 +68,10 @@
 
     font-size: 0.8rem;
     color: gray;
+
+    &.margin-bottom-10 {
+      margin-bottom: 10px;
+    }
   
   }
 

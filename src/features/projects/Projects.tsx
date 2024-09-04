@@ -76,7 +76,7 @@ export function Projects () {
       <div className='projects-header'>
 
         <div className='projects-header-subtitle'>
-          <select onChange={handleStatusChange} value={selectedStatus}>
+          <select className='select-basic' onChange={handleStatusChange} value={selectedStatus}>
             <option value='ACTIVE'>Active</option>
             <option value='IN_PROGRESS'>In Progress</option>
             <option value='IN_REVIEW'>In Review</option>
@@ -86,11 +86,11 @@ export function Projects () {
         </div> 
 
         <div className='projects-header-subtitle'>
-          <button className='new-project-button'>Create new project</button>
+          <button className='button-basic-gray'>Create new project</button>
         </div>
 
         <div className='projects-header-subtitle'>
-          <h3>Another select</h3>
+          <button className='button-basic-gray'>Another select</button>
         </div>
 
       </div>

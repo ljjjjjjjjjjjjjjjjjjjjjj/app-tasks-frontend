@@ -8,6 +8,7 @@ import { createTask, fetchTaskDetailedyId, updateTask } from '../../api/TasksApi
 import { createCategory, fetchCategories } from '../../api/CategoriesApi';
 import { fetchEmployeesWithImagesAll } from '../../api/EmployeesApi';
 import { CustomSelect } from '../../components/common/CustomSelect';
+import { format } from 'date-fns';
 
 import './TaskPageModal.scss'
 import { TaskModel } from '../../models/TaskModel';
@@ -196,7 +197,10 @@ export function TaskPageModal ({ task, onClose, onTaskUpdated }: TaskPageModalPr
             employees={employees}   
             setSelectedEmployeeId={setNewAssignedToId}   
             handleEmployeeAction={handleAssignEmployee}  
-            placeholderText="Search employee..."    
+            placeholderText="Search employee..."  
+            initialEmployeeName={task.assignedToEmployee 
+              ? `${task.assignedToEmployee.firstName} ${task.assignedToEmployee.lastName}` 
+              : ''} 
           />
         </div>
 
@@ -212,6 +216,22 @@ export function TaskPageModal ({ task, onClose, onTaskUpdated }: TaskPageModalPr
             <option value="DONE">Done</option>
           </select>
         </div>
+
+        {task.status.toLowerCase() === 'done' && (
+          <div className='task-form-item'>
+            <label htmlFor="doneDate">
+              Done date:
+            </label>
+            <input 
+              type="text" 
+              id="doneDate" 
+              value={task.doneDate 
+                ? format(new Date(task.doneDate), 'dd MMMM yyyy, HH:mm') 
+                : ''}
+              readOnly 
+            />
+          </div>
+        )}
 
 
         <div className='task-form-item'>
@@ -240,6 +260,18 @@ export function TaskPageModal ({ task, onClose, onTaskUpdated }: TaskPageModalPr
               </option>
             ))}
           </select>
+        </div>
+
+        <div className='task-form-item'>
+          <label htmlFor="createdByEmployee">
+            Created by:
+          </label>
+          <input 
+            type="text" 
+            id="createdByEmployee" 
+            value={`${task.createdByEmployee.firstName} ${task.createdByEmployee.lastName}`} 
+            readOnly 
+          />
         </div>
 
 

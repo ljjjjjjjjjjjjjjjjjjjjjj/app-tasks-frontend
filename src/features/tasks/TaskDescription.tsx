@@ -30,11 +30,14 @@ export function TaskDescription ({ task, onClick }: TaskDescriptionProps) {
 
       </div>
 
-      <p className='task-small-font'>
+      <p className="task-small-font margin-bottom-10">
         {getShortDescription(task.description)}
       </p>
       <p className='task-small-font'>
-         Assigned to: {isAssigned ? `${task.assignedToEmployee?.firstName ?? ''} ${task.assignedToEmployee?.lastName ?? ''}`.trim() : 'none'}
+         <span className='text-font-weight-500'>Assigned to: </span>{isAssigned ? `${task.assignedToEmployee?.firstName ?? ''} ${task.assignedToEmployee?.lastName ?? ''}`.trim() : 'none'}
+      </p>
+      <p className='task-small-font'>
+      <span className='text-font-weight-500'>Created by: </span>{task.createdByEmployee.firstName} {task.createdByEmployee.lastName}
       </p>
     </div>
   );
